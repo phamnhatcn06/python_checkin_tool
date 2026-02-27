@@ -1,0 +1,40 @@
+<?php
+try {
+    $pdo = new PDO('mysql:host=127.0.0.1;dbname=checkin', 'root', '123456a@');
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Create agenda_days table
+    $sqlDays = "
+    CREATE TABLE IF NOT EXISTS `agenda_days` (
+        `id` int(11) NOT NULL AUTO_INCREMENT,
+        `day_label` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+        `date_label` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+        `sort_order` int(11) NOT NULL DEFAULT '0',
+        PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ";
+    $pdo->exec($sqlDays);
+    echo "Table 'agenda_days' created or verified successfully.\n";
+
+    // Create agenda_events table
+    $sqlEvents = "
+    CREATE TABLE IF NOT EXISTS `agenda_events` (
+        `id` int(11) NOT NULL AUTO_INCREMENT,
+        `day_id` int(11) NOT NULL,
+        `time_label` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+        `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+        `location` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+        `description` text COLLATE utf8mb4_unicode_ci,
+        `event_type` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT 'normal',
+        `sort_order` int(11) NOT NULL DEFAULT '0',
+        PRIMARY KEY (`id`),
+        KEY `day_id_idx` (`day_id`),
+        CONSTRAINT `fk_agenda_event_day` FOREIGN KEY (`day_id`) REFERENCES `agenda_days` (`id`) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ";
+    $pdo->exec($sqlEvents);
+    echo "Table 'agenda_events' created or verified successfully.\n";
+
+} catch (PDOException $e) {
+    echo "Database Error: " . $e->getMessage();
+}
