@@ -19,17 +19,18 @@
             </div>
         </div>
         <div class="text-center mb-4 space-y-1">
-            <p class="text-xs font-medium text-primary-light/70 tracking-[0.2em] uppercase">Xin chào</p>
-            <h2 class="text-2xl font-bold leading-tight tracking-tight px-4 text-white">
+            <p class="text-xs max-[480px]:text-[10px] font-medium text-primary-light/70 tracking-[0.2em] uppercase">Xin chào
+            </p>
+            <h2 class="text-2xl max-[480px]:text-xl font-bold leading-tight tracking-tight px-4 text-white">
                 <?php echo CHtml::encode($attendee['full_name']); ?>
             </h2>
             <?php if (!empty($attendee['position'])): ?>
-                <p class="text-sm font-medium text-primary-light/90 mt-1">
+                <p class="text-sm max-[480px]:text-[12px] font-medium text-primary-light/90 mt-1">
                     <?php echo CHtml::encode($attendee['position']); ?>
                 </p>
             <?php endif; ?>
             <?php if (!empty($attendee['company'])): ?>
-                <p class="text-sm text-primary-light/70 mt-0.5">
+                <p class="text-sm max-[480px]:text-[12px] text-primary-light/70 mt-0.5">
                     <?php echo CHtml::encode($attendee['company']); ?>
                 </p>
             <?php endif; ?>
@@ -37,11 +38,12 @@
 
     <?php else: ?>
         <div class="text-center mb-8 mt-4 space-y-2">
-            <p class="text-xs font-medium text-primary-light/70 tracking-[0.2em] uppercase">Xin chào</p>
-            <h2 class="text-2xl font-bold leading-tight tracking-tight px-4 text-white">
+            <p class="text-xs max-[480px]:text-[10px] font-medium text-primary-light/70 tracking-[0.2em] uppercase">Xin chào
+            </p>
+            <h2 class="text-2xl max-[480px]:text-xl font-bold leading-tight tracking-tight px-4 text-white">
                 Thành viên tham dự
             </h2>
-            <p class="text-sm font-medium text-primary-light/70 tracking-[0.1em] uppercase mt-2">
+            <p class="text-sm max-[480px]:text-[12px] font-medium text-primary-light/70 tracking-[0.1em] uppercase mt-2">
                 Vui lòng quét mã QR để định danh
             </p>
         </div>
@@ -56,8 +58,10 @@
                 class="absolute inset-0 bg-gold-gradient opacity-0 group-hover:opacity-5 transition-opacity duration-300">
             </div>
             <span
-                class="material-symbols-outlined text-4xl text-gradient-gold group-hover:scale-110 transition-transform duration-300">calendar_month</span>
-            <span class="text-sm font-bold leading-tight text-primary-light uppercase tracking-wide">Xem Agenda</span>
+                class="material-symbols-outlined text-4xl max-[480px]:text-3xl text-gradient-gold group-hover:scale-110 transition-transform duration-300">calendar_month</span>
+            <span
+                class="text-sm max-[480px]:text-[12px] font-bold leading-tight text-primary-light uppercase tracking-wide">Xem
+                Agenda</span>
         </a>
         <button
             class="group relative flex flex-col gap-3 rounded-xl border border-primary/20 bg-burgundy-light/30 backdrop-blur-sm p-5 items-center justify-center text-center shadow-lg transition-all duration-300 hover:bg-burgundy-light/60 hover:border-primary/50 hover:-translate-y-1 hover:shadow-glow active:scale-95 overflow-hidden">
@@ -65,8 +69,10 @@
                 class="absolute inset-0 bg-gold-gradient opacity-0 group-hover:opacity-5 transition-opacity duration-300">
             </div>
             <span
-                class="material-symbols-outlined text-4xl text-gradient-gold group-hover:scale-110 transition-transform duration-300">folder_open</span>
-            <span class="text-sm font-bold leading-tight text-primary-light uppercase tracking-wide">Tài liệu</span>
+                class="material-symbols-outlined text-4xl max-[480px]:text-3xl text-gradient-gold group-hover:scale-110 transition-transform duration-300">folder_open</span>
+            <span
+                class="text-sm max-[480px]:text-[12px] font-bold leading-tight text-primary-light uppercase tracking-wide">Tài
+                liệu</span>
         </button>
         <button
             class="group relative flex flex-col gap-3 rounded-xl border border-primary/20 bg-burgundy-light/30 backdrop-blur-sm p-5 items-center justify-center text-center shadow-lg transition-all duration-300 hover:bg-burgundy-light/60 hover:border-primary/50 hover:-translate-y-1 hover:shadow-glow active:scale-95 overflow-hidden">
@@ -74,8 +80,10 @@
                 class="absolute inset-0 bg-gold-gradient opacity-0 group-hover:opacity-5 transition-opacity duration-300">
             </div>
             <span
-                class="material-symbols-outlined text-4xl text-gradient-gold group-hover:scale-110 transition-transform duration-300">location_on</span>
-            <span class="text-sm font-bold leading-tight text-primary-light uppercase tracking-wide">Địa điểm</span>
+                class="material-symbols-outlined text-4xl max-[480px]:text-3xl text-gradient-gold group-hover:scale-110 transition-transform duration-300">location_on</span>
+            <span
+                class="text-sm max-[480px]:text-[12px] font-bold leading-tight text-primary-light uppercase tracking-wide">Địa
+                điểm</span>
         </button>
         <button
             class="group relative flex flex-col gap-3 rounded-xl border border-primary/20 bg-burgundy-light/30 backdrop-blur-sm p-5 items-center justify-center text-center shadow-lg transition-all duration-300 hover:bg-burgundy-light/60 hover:border-primary/50 hover:-translate-y-1 hover:shadow-glow active:scale-95 overflow-hidden">
@@ -83,8 +91,10 @@
                 class="absolute inset-0 bg-gold-gradient opacity-0 group-hover:opacity-5 transition-opacity duration-300">
             </div>
             <span
-                class="material-symbols-outlined text-4xl text-gradient-gold group-hover:scale-110 transition-transform duration-300">chat_bubble_outline</span>
-            <span class="text-sm font-bold leading-tight text-primary-light uppercase tracking-wide">Gửi phản hồi</span>
+                class="material-symbols-outlined text-4xl max-[480px]:text-3xl text-gradient-gold group-hover:scale-110 transition-transform duration-300">chat_bubble_outline</span>
+            <span
+                class="text-sm max-[480px]:text-[12px] font-bold leading-tight text-primary-light uppercase tracking-wide">Gửi
+                phản hồi</span>
         </button>
     </div>
 </main>

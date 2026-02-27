@@ -117,34 +117,126 @@
 </head>
 
 <body class="bg-burgundy-dark min-h-screen font-display text-primary-light selection:bg-primary/30">
-    <div class="crystal-bg relative flex h-full min-h-screen w-full flex-col overflow-x-hidden">
-        <header class="flex flex-col items-center p-6 pb-2 justify-center relative z-10 gap-1">
-            <img src="<?php echo Yii::app()->request->baseUrl; ?>/assets/img/logo_header.png"
-                alt="Mường Thanh Hospitality" class="h-16 object-contain mb-1" />
-            <h1 class="text-3xl font-extrabold tracking-tight text-center uppercase text-gradient-gold drop-shadow-sm">
-                GM Meeting 2026
-            </h1>
+    <div class="crystal-bg relative flex h-full min-h-screen w-full flex-col">
+        <header id="main-header"
+            class="fixed top-0 left-0 w-full flex flex-col items-center p-6 pb-2 justify-center z-40 gap-1 transition-all duration-300">
+            <?php
+            $code = null;
+            if (isset($_GET['code'])) {
+                $code = $_GET['code'];
+            } elseif (isset(Yii::app()->request->cookies['checkin_code'])) {
+                $code = Yii::app()->request->cookies['checkin_code']->value;
+            }
+            $homeUrl = Yii::app()->createUrl('/frontend/default/index');
+            if ($code) {
+                $homeUrl .= '?code=' . urlencode($code);
+            }
+            ?>
+            <a href="<?php echo $homeUrl; ?>" class="block transition-transform hover:scale-[1.02]">
+                <img id="header-logo" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/img/logo_header_new.png"
+                    alt="Mường Thanh Hospitality"
+                    class="h-24 max-[480px]:h-20 object-contain mb-1 transition-all duration-300" />
+            </a>
         </header>
 
         <!-- Dynamic Content Section -->
-        <div class="flex-1 w-full flex flex-col pb-32">
+        <div class="flex-1 w-full flex flex-col pt-32 pb-32">
             <?php echo $content; ?>
         </div>
 
-        <div class="fixed bottom-0 left-0 w-full z-50 pointer-events-none">
-            <div class="w-full text-center px-6 py-2 pointer-events-auto">
-                <p
-                    class="text-xs md:text-sm font-light italic text-text-gold tracking-wide opacity-90 border-t border-primary/20 pt-3 w-[85%] mx-auto">
-                    "Đổi mới tư duy - Chinh phục thử thách"
-                </p>
-            </div>
+        <div class="fixed bottom-0 left-0 w-full z-50">
+            <?php
+            // Determine if we are on the homepage or an inner page
+            $controllerId = Yii::app()->controller->id;
+            $actionId = Yii::app()->controller->action->id;
+            $isHomePage = ($controllerId === 'default' && $actionId === 'index') || ($controllerId === 'site' && $actionId === 'index');
 
-            <footer class="pb-4 pt-1 text-center pointer-events-auto">
-                <p class="text-[10px] text-primary-light/40 font-medium">© 2026 Mường Thanh Hospitality. All rights
-                    reserved.</p>
-            </footer>
+            if ($isHomePage):
+                ?>
+                <!-- Home Page Footer -->
+                <div class="pointer-events-none">
+                    <div
+                        class="w-full text-center px-6 py-2 pointer-events-auto bg-gradient-to-t from-burgundy-dark via-burgundy-dark/90 to-transparent">
+                        <p
+                            class="text-xs md:text-sm font-light italic text-text-gold tracking-wide opacity-90 border-t border-primary/20 pt-3 w-[85%] mx-auto">
+                            "Đổi mới tư duy - Chinh phục thử thách"
+                        </p>
+                    </div>
+
+                    <footer class="pb-4 pt-1 text-center pointer-events-auto bg-burgundy-dark">
+                        <p class="text-[10px] text-primary-light/40 font-medium">© 2026 Mường Thanh Hospitality. All rights
+                            reserved.</p>
+                    </footer>
+                </div>
+            <?php else: ?>
+                <!-- Inner Pages Navigation Footer -->
+                <div
+                    class="bg-burgundy-dark/95 backdrop-blur-md border-t border-primary/20 pb-safe pt-2 px-1 rounded-t-2xl shadow-[0_-4px_25px_-5px_rgba(212,175,55,0.15)] flex justify-between items-end relative pb-2 md:pb-4">
+
+                    <!-- Home -->
+                    <a href="<?php echo $homeUrl; ?>"
+                        class="flex flex-col items-center justify-center flex-1 py-1 <?php echo ($actionId === 'index') ? 'text-primary' : 'text-primary-light/60 hover:text-primary transition-colors'; ?>">
+                        <span class="material-symbols-outlined text-[24px] max-[480px]:text-[20px] mb-1">home</span>
+                        <span class="text-[10px] max-[480px]:text-[9px] font-medium tracking-wide">Trang chủ</span>
+                    </a>
+
+                    <!-- Agenda -->
+                    <a href="<?php echo Yii::app()->createUrl('/frontend/default/agenda') . ($code ? '?code=' . urlencode($code) : ''); ?>"
+                        class="flex flex-col items-center justify-center flex-1 py-1 <?php echo ($actionId === 'agenda') ? 'text-primary' : 'text-primary-light/60 hover:text-primary transition-colors'; ?>">
+                        <span
+                            class="material-symbols-outlined text-[24px] max-[480px]:text-[20px] mb-1">calendar_month</span>
+                        <span class="text-[10px] max-[480px]:text-[9px] font-medium tracking-wide">Lịch trình</span>
+                    </a>
+
+                    <!-- Documents -->
+                    <a href="javascript:void(0)"
+                        class="flex flex-col items-center justify-center flex-1 py-1 <?php echo ($actionId === 'documents') ? 'text-primary' : 'text-primary-light/60 hover:text-primary transition-colors'; ?>">
+                        <span class="material-symbols-outlined text-[24px] max-[480px]:text-[20px] mb-1">folder_open</span>
+                        <span class="text-[10px] max-[480px]:text-[9px] font-medium tracking-wide">Tài liệu</span>
+                    </a>
+
+                    <!-- Profile -->
+                    <a href="javascript:void(0)"
+                        class="flex flex-col items-center justify-center flex-1 py-1 <?php echo ($actionId === 'profile') ? 'text-primary' : 'text-primary-light/60 hover:text-primary transition-colors'; ?>">
+                        <span class="material-symbols-outlined text-[24px] max-[480px]:text-[20px] mb-1">person</span>
+                        <span class="text-[10px] max-[480px]:text-[9px] font-medium tracking-wide">Cá nhân</span>
+                    </a>
+
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 </body>
+<script>
+    document.addEventListener('scroll', function () {
+        const header = document.getElementById('main-header');
+        const logo = document.getElementById('header-logo');
+        const agendaTabs = document.getElementById('agenda-tabs-header');
+
+        if (window.scrollY > 30) {
+            header.classList.add('bg-burgundy-dark/95', 'backdrop-blur-md', 'border-b', 'border-primary/20', 'shadow-sm', 'py-2');
+            header.classList.remove('p-6');
+            logo.classList.replace('h-24', 'h-14');
+            logo.classList.replace('max-[480px]:h-20', 'max-[480px]:h-12');
+
+            if (agendaTabs) {
+                agendaTabs.style.top = (header.offsetHeight - 1) + 'px';
+            }
+        } else {
+            header.classList.remove('bg-burgundy-dark/95', 'backdrop-blur-md', 'border-b', 'border-primary/20', 'shadow-sm', 'py-2');
+            header.classList.add('p-6');
+            logo.classList.replace('h-14', 'h-24');
+            logo.classList.replace('max-[480px]:h-12', 'max-[480px]:h-20');
+
+            if (agendaTabs) {
+                agendaTabs.style.top = (header.offsetHeight - 1) + 'px'; // Keep it correctly positioned relative to big header too
+            }
+        }
+    });
+
+    // Initial call to set proper offset on load if needed
+    window.dispatchEvent(new Event('scroll'));
+
+</script>
 
 </html>

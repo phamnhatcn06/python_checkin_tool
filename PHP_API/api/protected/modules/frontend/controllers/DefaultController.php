@@ -7,6 +7,20 @@ class DefaultController extends Controller
     public function actionIndex()
     {
         $code = Yii::app()->request->getParam('code');
+
+        if (!empty($code)) {
+            // Set cookie if taking from URL
+            $cookie = new CHttpCookie('checkin_code', $code);
+            $cookie->expire = time() + 60 * 60 * 24 * 30; // 30 days
+            Yii::app()->request->cookies['checkin_code'] = $cookie;
+        } else {
+            // Fallback to cookie
+            $cookie = isset(Yii::app()->request->cookies['checkin_code']) ? Yii::app()->request->cookies['checkin_code'] : null;
+            if ($cookie) {
+                $code = $cookie->value;
+            }
+        }
+
         $attendee = null;
         $isCheckedIn = false;
 
