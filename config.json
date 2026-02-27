@@ -1,0 +1,4 @@
+{
+    "api_base_url": "http://gmm.vn:8080/index.php",
+    "auto_reset_seconds": 30
+}
